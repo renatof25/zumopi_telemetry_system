@@ -1,0 +1,3 @@
+int32 signal_power
+float32 rx_rate
+float32 tx_rate

@@ -1,0 +1,2 @@
+string sensor
+int32 period_msec

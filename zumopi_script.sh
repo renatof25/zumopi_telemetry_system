@@ -44,7 +44,7 @@ echo \# arduino cli >> ~/.bash_aliases
 echo alias compileZumo=\"arduino-cli compile --fqbn pololu-a-star:avr:a-star32U4\" >> ~/.bash_aliases
 echo alias uploadZumo=\"arduino-cli upload -p /dev/ttyACM0 --fqbn pololu-a-star:avr:a-star32U4\" >> ~/.bash_aliases
 echo \# Telemetry aliases >> ~/.bash_aliases
-echo alias zardrun=\"compileZumo ~/ros2_ws/arduino_serial_interface && uploadZumo ~/ros2_ws/arduino_serial_interface\" >> ~/.bash_aliases
+echo alias zardrun=\"compileZumo ~/arduino_serial_interface && uploadZumo ~/arduino_serial_interface\" >> ~/.bash_aliases
 echo alias comprosall=\"cd ~/ros2_ws/ && colcon build\" >> ~/.bash_aliases
 echo alias tel=\"ros2 launch telemetry_bringup telemetry.launch.py\" >> ~/.bash_aliases
 echo alias gui=\"ros2 launch telemetry_bringup gui.launch.py\" >> ~/.bash_aliases

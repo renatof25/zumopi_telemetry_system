@@ -25,6 +25,10 @@ setup(
             "ups_reading_node = telemetry_pkg.ups_reading:main",
             "camera_node = telemetry_pkg.camera:main",
             "gui_node = telemetry_pkg.gui:main",
+            "serial_interface_generator_node = telemetry_pkg.serial_interface_gen:main",
+            "ups_generator_node = telemetry_pkg.ups_gen:main",
+            "camera_generator_node = telemetry_pkg.camera_gen:main",
+            "wifi_generator_node = telemetry_pkg.wifi_gen:main"
         ],
     },
 )

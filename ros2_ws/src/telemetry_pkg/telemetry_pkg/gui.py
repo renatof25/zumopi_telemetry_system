@@ -212,9 +212,8 @@ class GUINode(Node, Ui_MainWindow):
 
     def callback_wifi_stats(self, msg):
         self.wifi_stats_signal_power = msg.signal_power
-        # for some reason ROS swaps between rx and tx when receiving msg, this is a temp solution....
-        self.wifi_stats_rx_rate = msg.tx_rate
-        self.wifi_stats_tx_rate = msg.rx_rate
+        self.wifi_stats_rx_rate = msg.rx_rate
+        self.wifi_stats_tx_rate = msg.tx_rate
 
         self.wifi_stats_rx_tx_rate_color = "black"
 

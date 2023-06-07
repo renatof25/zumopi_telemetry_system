@@ -209,7 +209,6 @@ class GUINode(Node, Ui_MainWindow):
         # ROS2 init
         self.wifi_stats_subscriber_ = self.create_subscription(WifiStats, "wifi_stats", self.callback_wifi_stats, 10)
 
-
     def callback_wifi_stats(self, msg):
         self.wifi_stats_signal_power = msg.signal_power
         self.wifi_stats_rx_rate = msg.rx_rate
@@ -235,6 +234,7 @@ class GUINode(Node, Ui_MainWindow):
         # If recieved data, it means there is wifi connections
         self.app_keep_alive_time_dict["connection"] = time()
         log_msg(self.telemetry_data_logger, "recieved", msg)
+
 
 # ----------------ZUMO-------------------
     # Received sensor data from arduino
@@ -277,11 +277,12 @@ class GUINode(Node, Ui_MainWindow):
         # UI init
         self.buzzer_color = "transparent"
         self.buzzer_status = ""
+        self.buzzer_button_status = "Play Buzzer"
         self.buzzer_period_color = "transparent"
         self.buzzer_enable_color = "transparent"
         self.ui.buzzer_spinbox.setMinimum(ARDUINO_DELAY)
         self.ui.buzzer_spinbox.setValue(self.period_sensor_dict["buzzer"])        
-        self.ui.buzzer_button_play.clicked.connect(lambda: self.play_buzzer(True))
+        self.ui.buzzer_button_play.clicked.connect(lambda: self.play_buzzer(False if self.buzzer_status=="Playing" else True))
         self.ui.buzzer_button_period.clicked.connect(lambda: self.set_period("buzzer", self.ui.buzzer_spinbox.value()))
         self.ui.buzzer_button_enable.clicked.connect(lambda: self.enable_sensor("buzzer", not self.enable_sensor_dict["buzzer"]))
         self.ui.buzzer_reset_button.clicked.connect(lambda: self.reset_sensor("buzzer"))
@@ -295,9 +296,11 @@ class GUINode(Node, Ui_MainWindow):
             if msg.is_playing:
                 self.buzzer_status = "Playing"
                 self.buzzer_color = "green"
+                self.buzzer_button_status = "Stop Buzzer"
             else:
                 self.buzzer_status = "Not Playing"
                 self.buzzer_color = "red"
+                self.buzzer_button_status = "Play Buzzer"
             log_msg(self.telemetry_data_logger, "recieved", msg)
 
     def play_buzzer(self, play):
@@ -793,17 +796,19 @@ class GUINode(Node, Ui_MainWindow):
         self.ui.buzzer_label_period.setText(f'{self.period_sensor_dict["buzzer"]} msec')
         self.ui.buzzer_label_period.setStyleSheet(f"color: {self.buzzer_period_color}")
         self.ui.buzzer_label_period.adjustSize()
-        self.ui.buzzer_label_enable.setText(f'{self.enable_sensor_dict["buzzer"]}')        
+        self.ui.buzzer_label_enable.setText(f'{self.enable_sensor_dict["buzzer"]}')
         self.ui.buzzer_label_enable.setStyleSheet(f"color: {self.buzzer_enable_color}")
         self.ui.buzzer_label_enable.adjustSize()
+        self.ui.buzzer_button_play.setText(self.buzzer_button_status if self.enable_sensor_dict["buzzer"] else "Play Buzzer")
 
     def buzzer_widgets_enable(self, status):
         self.ui.buzzer_button_period.setEnabled(status)
-        self.ui.buzzer_button_play.setEnabled(status)
+        self.ui.buzzer_button_play.setEnabled(status and self.enable_sensor_dict["buzzer"])
         self.ui.buzzer_reset_button.setEnabled(status)
         self.ui.buzzer_button_enable.setEnabled(status)
         self.ui.buzzer_spinbox.setEnabled(status)
         if not status:
+            self.buzzer_button_status = "Play Buzzer"
             self.buzzer_color = "transparent"
             self.buzzer_period_color = "transparent"
             self.buzzer_enable_color = "transparent"
@@ -1141,6 +1146,7 @@ def main(args=None):
         pass 
     
     finally:
+
         if not node.motors_zero: # if not idle, stop motors when exiting
             node.set_motors_publish(0,0)
         if node.recording: # if recording, stop video recording

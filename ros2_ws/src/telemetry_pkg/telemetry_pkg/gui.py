@@ -29,7 +29,7 @@ from telemetry_pkg.joystick import Joystick
 from telemetry_pkg.utilities import RepeatedTimer, TelemetryLogger, generate_str_timestamp, log_msg
 
 # -------------GLOBAL PARAMETERS-----------
-GUI_REFRESH_PERIOD = 50 # msec
+GUI_REFRESH_PERIOD = 10 # msec
 ARDUINO_DELAY = 50 # msec minimum sampling rate in spinbox, must be bigger than loop delay on Arduino
 UPS_MIN_PERIOD = 50 # msec minimum sampling rate in spinbox
 KEEP_ALIVE_PERIOD = 2 # sec

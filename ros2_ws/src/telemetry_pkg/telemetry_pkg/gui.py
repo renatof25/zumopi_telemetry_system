@@ -307,7 +307,7 @@ class GUINode(Node, Ui_MainWindow):
         msg = PlayBuzzer()
         msg.play_buzzer = int(play)
         self.play_buzzer_publisher_.publish(msg)
-        log_msg(self.telemetry_data_logger, "publish", msg)
+        log_msg(self.telemetry_data_logger, "published", msg)
 
 # ----------------IMU------------------
     def init_imu(self):
@@ -493,7 +493,7 @@ class GUINode(Node, Ui_MainWindow):
         msg.motors_left = int(motors_left)
         msg.motors_right = int(motors_right)
         self.motors_publisher_.publish(msg)
-        log_msg(self.telemetry_data_logger, "publish", msg)
+        log_msg(self.telemetry_data_logger, "published", msg)
 
 # ----------------UPS-------------------
     # Received sensor data from UPS
@@ -712,14 +712,14 @@ class GUINode(Node, Ui_MainWindow):
         msg.sensor = sensor
         msg.period_msec = period
         self.period_serial_publisher_.publish(msg)        
-        log_msg(self.telemetry_data_logger, "publish", msg)
+        log_msg(self.telemetry_data_logger, "published", msg)
 
     def enable_sensor(self, sensor, enable):
         msg = EnableRead()
         msg.sensor = sensor
         msg.enable_read = int(enable)
         self.enable_serial_publisher_.publish(msg)
-        log_msg(self.telemetry_data_logger, "publish", msg)
+        log_msg(self.telemetry_data_logger, "published", msg)
 
     def reset_sensor(self, sensor):
         self.enable_sensor(sensor, ENABLE_RESET_SENSORS)

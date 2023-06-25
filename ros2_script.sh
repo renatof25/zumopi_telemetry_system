@@ -36,3 +36,4 @@ echo alias tel=\"ros2 launch telemetry_bringup telemetry.launch.py\" >> ~/.bash_
 echo alias gui=\"ros2 launch telemetry_bringup gui.launch.py\" >> ~/.bash_aliases
 echo alias data=\"ros2 launch telemetry_bringup data_gen.launch.py\"  >> ~/.bash_aliases
 echo alias rmlog=\"rm ~/ros2_ws/telemetry_logs/ -rf\" >> ~/.bash_aliases
+source ~/.bash_aliases

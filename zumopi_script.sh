@@ -45,3 +45,4 @@ echo alias compileZumo=\"arduino-cli compile --fqbn pololu-a-star:avr:a-star32U4
 echo alias uploadZumo=\"arduino-cli upload -p /dev/ttyACM0 --fqbn pololu-a-star:avr:a-star32U4\" >> ~/.bash_aliases
 echo \# Telemetry aliases >> ~/.bash_aliases
 echo alias zardrun=\"compileZumo ~/arduino_serial_interface && uploadZumo ~/arduino_serial_interface\" >> ~/.bash_aliases
+source ~/.bash_aliases
